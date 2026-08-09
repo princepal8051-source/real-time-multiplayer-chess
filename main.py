@@ -1,9 +1,10 @@
 import pygame
-
+import threading
 from settings import *
 from board import board
 from pieces import load_pieces
 from database import save_move
+from network import Network
 
 from rules import (
     is_same_color,
@@ -27,6 +28,34 @@ from database import (
     update_game_status
 )
 pygame.init()
+
+network = Network()
+
+
+
+def receive_moves():
+     while True:
+           try:
+               data = network.receive()
+               if data:
+                   from_row, from_col, to_row, to_col = map(
+                         int,
+                         data.split(",")
+                     )
+                   board[to_row][to_col] = board[from_row][from_col]
+                   board[from_row][from_col] = ""
+                   print(
+                        "Received Move:",
+                        data
+                        )
+
+           except:
+                pass
+
+threading.Thread(
+    target=receive_moves,
+    daemon=True
+).start()
 
 # =========================================================
 # DATABASE SETUP
@@ -839,6 +868,10 @@ while running:
                                col,
                                captured_piece
                                )
+                            
+                            move_data = f"{selected_row},{selected_col},{row},{col}"
+
+                            network.send(move_data)
 
                             print("Move saved successfully")
                         
