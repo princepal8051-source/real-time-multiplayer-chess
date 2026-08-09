@@ -3,6 +3,7 @@ import pygame
 from settings import *
 from board import board
 from pieces import load_pieces
+from database import save_move
 
 from rules import (
     is_same_color,
@@ -18,8 +19,40 @@ from history import (
     get_captured_pieces
 )
 
-
+from database import (
+    create_tables,
+    add_player,
+    create_game,
+    save_move,
+    update_game_status
+)
 pygame.init()
+
+# =========================================================
+# DATABASE SETUP
+# =========================================================
+
+create_tables()
+
+white_player = "Player 1"
+black_player = "Player 2"
+
+add_player(
+    white_player,
+    "white"
+)
+
+add_player(
+    black_player,
+    "black"
+)
+
+game_id = create_game(
+    white_player,
+    black_player
+)
+
+print("Game ID:", game_id)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Chess Game")
@@ -742,46 +775,15 @@ while running:
 
                     ):
 
-
-                        # -----------------------------------------
-                        # SAVE CAPTURED PIECE
-                        # -----------------------------------------
-
                         captured_piece = board[row][col]
 
-
                         # -----------------------------------------
-                        # MAKE MOVE
+                        # MAKE TEMPORARY MOVE
                         # -----------------------------------------
 
                         board[row][col] = piece
 
-                        board[
-                            selected_row
-                        ][
-                            selected_col
-                        ] = ""
-
-
-                        # -----------------------------------------
-                        # SAVE MOVE HISTORY
-                        # -----------------------------------------
-
-                        add_move(
-
-                            piece,
-
-                            selected_row,
-
-                            selected_col,
-
-                            row,
-
-                            col,
-
-                            captured_piece
-
-                        )
+                        board[selected_row][selected_col] = ""
 
 
                         # -----------------------------------------
@@ -789,12 +791,58 @@ while running:
                         # -----------------------------------------
 
                         illegal_move = is_in_check(
-
-                            board,
-
+                             board,
                             current_turn
+                         )
 
-                        )
+
+                        if illegal_move: 
+
+                        # -------------------------------------
+                        # UNDO MOVE
+                        # -------------------------------------
+
+                         board[selected_row][selected_col] = piece
+
+                         board[row][col] = captured_piece
+
+                         print("Illegal move:")
+                         print("Your King is in check")
+
+
+                        else:
+
+                            #-------------------------------------
+                            # SAVE MOVE TO DATABASE
+                            # -------------------------------------
+
+                            save_move(
+                                game_id,
+                                current_turn,
+                                piece,
+                                selected_row,
+                                selected_col,
+                                row,
+                                col,
+                                captured_piece
+                             )
+
+                            # -------------------------------------
+                            # SAVE MOVE HISTORY
+                            # -------------------------------------
+
+                            add_move(
+                               piece,
+                               selected_row,
+                               selected_col,
+                               row,
+                               col,
+                               captured_piece
+                               )
+
+                            print("Move saved successfully")
+                        
+                        
 
 
                         if illegal_move:
