@@ -1,5 +1,6 @@
 import socket
 
+
 class Network:
 
     def __init__(self):
@@ -17,7 +18,14 @@ class Network:
             self.port
         )
 
+        self.buffer = ""
+
         self.connect()
+
+
+    # =========================================
+    # CONNECT
+    # =========================================
 
     def connect(self):
 
@@ -27,30 +35,79 @@ class Network:
                 self.addr
             )
 
-        except:
+            print(
+                "Connected to server"
+            )
 
-            pass
+        except Exception as e:
+
+            print(
+                "Connection Error:",
+                e
+            )
+
+
+    # =========================================
+    # SEND
+    # =========================================
 
     def send(self, data):
 
         try:
 
-            self.client.send(
-                str(data).encode()
+            message = str(data) + "\n"
+
+            self.client.sendall(
+                message.encode()
             )
 
-        except:
+            print(
+                "Sent:",
+                data
+            )
 
-            pass
+        except Exception as e:
+
+            print(
+                "Send Error:",
+                e
+            )
+
+
+    # =========================================
+    # RECEIVE
+    # =========================================
 
     def receive(self):
 
         try:
 
-            return self.client.recv(
-                2048
-            ).decode()
+            while "\n" not in self.buffer:
 
-        except:
+                data = self.client.recv(
+                    2048
+                )
+
+                if not data:
+
+                    return None
+
+                self.buffer += data.decode()
+
+            message, self.buffer = (
+                self.buffer.split(
+                    "\n",
+                    1
+                )
+            )
+
+            return message.strip()
+
+        except Exception as e:
+
+            print(
+                "Receive Error:",
+                e
+            )
 
             return None

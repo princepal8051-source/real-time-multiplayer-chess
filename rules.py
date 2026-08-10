@@ -405,12 +405,23 @@ def has_legal_move(board, color):
     return False
 
 
+
 def is_checkmate(board, color):
 
-    if not is_in_check(board, color):
+    print("================================")
+    print("Checking checkmate for:", color)
+
+    in_check = is_in_check(board, color)
+    legal_move = has_legal_move(board, color)
+
+    print("In Check:", in_check)
+    print("Has Legal Move:", legal_move)
+    print("================================")
+
+    if not in_check:
         return False
 
-    return not has_legal_move(board, color)
+    return not legal_move
 
 
 def is_stalemate(board, color):
