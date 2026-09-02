@@ -14,6 +14,13 @@ Core Chess Features
 ✅ Castling
 ✅ Pawn Promotion
 ✅ Turn-Based Gameplay
+## 🌐 Live API
+
+API URL:
+https://real-time-multiplayer-chess-3.onrender.com
+
+API Documentation:
+https://real-time-multiplayer-chess-3.onrender.com/docs
 #Multiplayer Features
 ✅ Client-Server Architecture
 ✅ Two Player Support
