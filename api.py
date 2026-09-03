@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 import sqlite3
 from database import create_game, save_move
+from database import create_tables
 
 app = FastAPI()
+create_tables()
 
 @app.get("/")
 def home():
