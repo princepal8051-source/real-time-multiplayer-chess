@@ -1,20 +1,22 @@
 from fastapi import FastAPI
 import sqlite3
-from database import create_game, save_move
-from database import create_tables
+
+from database import create_tables, create_game, save_move
 
 app = FastAPI()
+
+print("Creating tables...")
 create_tables()
+print("Tables created!")
+
 
 @app.get("/")
 def home():
-    return {
-        "message": "Chess API Running"
-    }
+    return {"message": "Chess API Running"}
+
 
 @app.post("/create-game")
 def new_game():
-
     game_id = create_game(
         "Player 1",
         "Player 2"
@@ -36,7 +38,6 @@ def move(
     to_row: int,
     to_col: int
 ):
-
     save_move(
         game_id,
         player_color,
@@ -47,9 +48,7 @@ def move(
         to_col
     )
 
-    return {
-        "message": "Move Saved"
-    }
+    return {"message": "Move Saved"}
 
 
 @app.get("/moves/{game_id}")
@@ -59,7 +58,7 @@ def get_moves(game_id: int):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM moves WHERE game_id=?",
+        "SELECT * FROM moves WHERE game_id = ?",
         (game_id,)
     )
 
@@ -67,6 +66,4 @@ def get_moves(game_id: int):
 
     conn.close()
 
-    return {
-        "moves": data
-    }
+    return {"moves": data}
