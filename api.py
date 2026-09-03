@@ -14,6 +14,11 @@ print("Tables created!")
 def home():
     return {"message": "Chess API Running"}
 
+@app.get("/init-db")
+def init_db():
+    create_tables()
+    return {"message": "Database initialized"}
+
 
 @app.post("/create-game")
 def new_game():
