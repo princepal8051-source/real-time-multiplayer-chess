@@ -10,3 +10,5 @@ selected_col = -1
 
 current_turn = "white"
 
+
+
