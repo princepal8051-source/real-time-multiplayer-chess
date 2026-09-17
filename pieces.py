@@ -1,26 +1,27 @@
 import pygame
-import os
 
 def load_pieces():
+
     pieces = {}
 
-    base = os.path.join(os.path.dirname(__file__), "assets")
+    pieces["wk"] = pygame.image.load("/Users/princepal/Desktop/Chess_klt60.png")
+    pieces["wq"] = pygame.image.load("/Users/princepal/Desktop/Chess_qlt60.png")
+    pieces["wr"] = pygame.image.load("/Users/princepal/Desktop/Chess_rlt60.png")
+    pieces["wb"] = pygame.image.load("/Users/princepal/Desktop/Chess_blt60.png")
+    pieces["wn"] = pygame.image.load("/Users/princepal/Desktop/Chess_nlt60.png")
+    pieces["wp"] = pygame.image.load("/Users/princepal/Desktop/Chess_plt60.png")
 
-    pieces["wk"] = pygame.image.load(os.path.join(base, "white king.jpeg"))
-    pieces["wq"] = pygame.image.load(os.path.join(base, "white queen.jpeg"))
-    pieces["wr"] = pygame.image.load(os.path.join(base, "white rook.jpeg"))
-    pieces["wb"] = pygame.image.load(os.path.join(base, "white bishop.jpeg"))
-    pieces["wn"] = pygame.image.load(os.path.join(base, "white knight.jpeg"))
-    pieces["wp"] = pygame.image.load(os.path.join(base, "white pawn.jpeg"))
-
-    pieces["bk"] = pygame.image.load(os.path.join(base, "black king.jpeg"))
-    pieces["bq"] = pygame.image.load(os.path.join(base, "black queen.jpeg"))
-    pieces["br"] = pygame.image.load(os.path.join(base, "black rook.jpeg"))
-    pieces["bb"] = pygame.image.load(os.path.join(base, "black bishop.jpeg"))
-    pieces["bn"] = pygame.image.load(os.path.join(base, "black knight.jpeg"))
-    pieces["bp"] = pygame.image.load(os.path.join(base, "black pawn.jpeg"))
+    pieces["bk"] = pygame.image.load("/Users/princepal/Desktop/Chess_kdt60.png")
+    pieces["bq"] = pygame.image.load("/Users/princepal/Desktop/Chess_qdt60.png")
+    pieces["br"] = pygame.image.load("/Users/princepal/Desktop/Chess_rdt60.png")
+    pieces["bb"] = pygame.image.load("/Users/princepal/Desktop/Chess_bdt60.png")
+    pieces["bn"] = pygame.image.load("/Users/princepal/Desktop/Chess_ndt60.png")
+    pieces["bp"] = pygame.image.load("/Users/princepal/Desktop/Chess_pdt60.png")
 
     for piece in pieces:
-        pieces[piece] = pygame.transform.scale(pieces[piece], (80, 80))
+        pieces[piece] = pygame.transform.scale(
+            pieces[piece],
+            (80, 80)
+        )
 
     return pieces
