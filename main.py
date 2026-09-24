@@ -12,7 +12,8 @@ from rules import (
     is_valid_piece_move,
     is_in_check,
     is_checkmate,
-    is_stalemate
+    is_stalemate,
+    get_legal_moves
 )
 
 from history import (
@@ -165,6 +166,8 @@ pieces = load_pieces()
 selected_piece = None
 selected_row = -1
 selected_col = -1
+
+possible_moves = []
 
 
 # =========================================================
@@ -918,17 +921,37 @@ while running:
                 # SELECT
                 # -----------------------------------------
 
+
                 selected_piece = piece
-
                 selected_row = row
-
                 selected_col = col
-
+                possible_moves = get_legal_moves(
+                    board,
+                    selected_row,
+                    selected_col
+                )
 
                 print(
                     "Selected:",
                     selected_piece
                 )
+
+                print(
+                    "Possible Moves:",
+                    possible_moves
+                )
+
+                # selected_piece = piece
+
+                # selected_row = row
+
+                # selected_col = col
+
+
+                # print(
+                #     "Selected:",
+                #     selected_piece
+                # )
 
 
             # =============================================
@@ -960,13 +983,26 @@ while running:
                     target_piece
                 ):
 
-                    print(
-                        "Cannot capture your own piece"
+                    selected_piece = target_piece
+                    selected_row = row
+                    selected_col = col
+
+                    possible_moves = get_legal_moves(
+                        board,
+                        selected_row,
+                        selected_col
                     )
 
-                    selected_piece = None
-                    selected_row = -1
-                    selected_col = -1
+                    print(
+                        "Selected:",
+                        selected_piece
+                    )
+
+                    print(
+                        "Possible Moves:",
+                        possible_moves
+                    )
+
 
                     continue
 
@@ -1585,6 +1621,32 @@ while running:
                     SQUARE_SIZE
                 )
             )
+
+    # =====================================================
+    # POSSIBLE MOVES
+    # =====================================================
+
+    for move_row, move_col in possible_moves:
+
+        center_x = (
+            move_col * SQUARE_SIZE
+            + SQUARE_SIZE // 2
+        )
+
+        center_y = (
+            move_row * SQUARE_SIZE
+            + SQUARE_SIZE // 2
+        )
+
+        pygame.draw.circle(
+            screen,
+            (80, 80, 80),
+            (
+                center_x,
+                center_y
+            ),
+            10  
+        )
 
 
     # =====================================================

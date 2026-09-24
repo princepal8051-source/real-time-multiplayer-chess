@@ -430,3 +430,48 @@ def is_stalemate(board, color):
         return False
 
     return not has_legal_move(board, color)
+
+# =========================================================
+# GET LEGAL MOVES FOR ONE PIECE
+# =========================================================
+
+def get_legal_moves(board, from_row, from_col):
+    piece = board[from_row][from_col]
+
+    if piece == "":
+        return []
+
+    color = "white" if piece[0] == "w" else "black"
+
+    legal_moves = []
+
+    for to_row in range(8):
+        for to_col in range(8):
+
+            # Check normal piece movement
+            if not is_valid_piece_move(
+                board,
+                from_row,
+                from_col,
+                to_row,
+                to_col
+            ):
+                continue
+
+            captured_piece = board[to_row][to_col]
+
+            # Temporary move
+            board[to_row][to_col] = piece
+            board[from_row][from_col] = ""
+
+            # Check whether our own king is exposed
+            illegal = is_in_check(board, color)
+
+            # Undo temporary move
+            board[from_row][from_col] = piece
+            board[to_row][to_col] = captured_piece
+
+            if not illegal:
+                legal_moves.append((to_row, to_col))
+
+    return legal_moves
