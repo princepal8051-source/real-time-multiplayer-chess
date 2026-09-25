@@ -7,13 +7,23 @@ from pieces import load_pieces
 
 from network import Network
 
+# from rules import (
+#     is_same_color,
+#     is_valid_piece_move,
+#     is_in_check,
+#     is_checkmate,
+#     is_stalemate,
+#     get_legal_moves,# draw board
+# )
+
 from rules import (
     is_same_color,
     is_valid_piece_move,
     is_in_check,
     is_checkmate,
     is_stalemate,
-    get_legal_moves
+    get_legal_moves,
+    find_king
 )
 
 from history import (
@@ -1621,6 +1631,46 @@ while running:
                     SQUARE_SIZE
                 )
             )
+    # ==============================
+    # HIGHLIGHT KING WHEN IN CHECK
+    # ==============================
+
+    if is_in_check(board, "white"):
+        white_king = find_king(board, "white")
+
+        if white_king:
+            row, col = white_king
+
+            pygame.draw.rect(
+                screen,
+                (255, 0, 0),
+                (
+                    col * SQUARE_SIZE,
+                    row * SQUARE_SIZE,
+                    SQUARE_SIZE,
+                    SQUARE_SIZE
+                ),
+                5
+            )
+
+    if is_in_check(board, "black"):
+        black_king = find_king(board, "black")
+
+        if black_king:
+            row, col = black_king
+
+            pygame.draw.rect(
+                screen,
+                (255, 0, 0),
+                (
+                    col * SQUARE_SIZE,
+                    row * SQUARE_SIZE,
+                    SQUARE_SIZE,
+                    SQUARE_SIZE
+                ),
+                5
+            )
+
 
     # =====================================================
     # POSSIBLE MOVES
