@@ -1545,8 +1545,13 @@ while running:
                                         if current_turn == "black"
                                         else "Black"
                                     )
+                                
 
                                     game_over = True
+                                    possible_moves = []
+                                    selected_piece = None
+                                    selected_row = -1
+                                    selected_col = -1
 
 
                                     print(
