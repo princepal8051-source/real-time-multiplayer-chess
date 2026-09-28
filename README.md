@@ -228,17 +228,7 @@ Example:
 ### Prince Pal
 
 B.Tech CSE (Cloud Computing & Machine Learning)
-
-### Skills
-
-* Python
-* Data Analytics
-* Data Science
-* MySQL
-* Power BI
-* Machine Learning
-* Socket Programming
-* Game Development
+University Roll number -- 1240438034
 
 ### GitHub
 
