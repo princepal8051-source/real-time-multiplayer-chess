@@ -7,15 +7,6 @@ from pieces import load_pieces
 
 from network import Network
 
-# from rules import (
-#     is_same_color,
-#     is_valid_piece_move,
-#     is_in_check,
-#     is_checkmate,
-#     is_stalemate,
-#     get_legal_moves,# draw board
-# )
-
 from rules import (
     is_same_color,
     is_valid_piece_move,
@@ -951,18 +942,7 @@ while running:
                     possible_moves
                 )
 
-                # selected_piece = piece
-
-                # selected_row = row
-
-                # selected_col = col
-
-
-                # print(
-                #     "Selected:",
-                #     selected_piece
-                # )
-
+               
 
             # =============================================
             # SECOND CLICK
