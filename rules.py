@@ -4,29 +4,69 @@ def valid_pawn_move(
     from_col,
     to_row,
     to_col,
-    target_piece=""
+    target_piece="",
+    board=[]
 ):
+
     if piece == "wp":
 
-        if from_col == to_col and to_row == from_row - 1:
-            return target_piece == ""
+        # One step forward
+        if (
+            from_col == to_col
+            and to_row == from_row - 1
+            and target_piece == ""
+        ):
+            return True
 
-        if from_row == 6 and from_col == to_col and to_row == from_row - 2:
-            return target_piece == ""
+        # Two steps from starting position
+        if (
+            from_row == 6
+            and from_col == to_col
+            and to_row == from_row - 2
+            and board[from_row - 1][from_col] == ""
+            and board[to_row][to_col] == ""
+        ):
+            return True
 
-        if to_row == from_row - 1 and abs(to_col - from_col) == 1:
-            return target_piece != "" and target_piece[0] == "b"
+        # Capture
+        if (
+            to_row == from_row - 1
+            and abs(to_col - from_col) == 1
+        ):
+            return (
+                target_piece != ""
+                and target_piece[0] == "b"
+            )
 
     elif piece == "bp":
 
-        if from_col == to_col and to_row == from_row + 1:
-            return target_piece == ""
+        # One step forward
+        if (
+            from_col == to_col
+            and to_row == from_row + 1
+            and target_piece == ""
+        ):
+            return True
 
-        if from_row == 1 and from_col == to_col and to_row == from_row + 2:
-            return target_piece == ""
+        # Two steps from starting position
+        if (
+            from_row == 1
+            and from_col == to_col
+            and to_row == from_row + 2
+            and board[from_row + 1][from_col] == ""
+            and board[to_row][to_col] == ""
+        ):
+            return True
 
-        if to_row == from_row + 1 and abs(to_col - from_col) == 1:
-            return target_piece != "" and target_piece[0] == "w"
+        # Capture
+        if (
+            to_row == from_row + 1
+            and abs(to_col - from_col) == 1
+        ):
+            return (
+                target_piece != ""
+                and target_piece[0] == "w"
+            )
 
     return False
 
@@ -299,7 +339,8 @@ def is_valid_piece_move(
             from_col,
             to_row,
             to_col,
-            target_piece
+            target_piece,
+            board
         )
 
     elif piece_type == "n":

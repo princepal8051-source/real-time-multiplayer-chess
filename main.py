@@ -581,6 +581,11 @@ threading.Thread(
 
 def draw_promotion_menu():
 
+    global promotion_color
+
+    if promotion_color is None:
+        return
+
     overlay = pygame.Surface(
         (WIDTH, HEIGHT)
     )
@@ -738,12 +743,8 @@ while running:
                         selected_option = "n"
 
 
-                if selected_option:
-
-                    promoted_piece = (
-                        promotion_color
-                        + selected_option
-                    )
+                if selected_option and promotion_color:
+                    promoted_piece = f"{promotion_color}{selected_option}"
 
 
                     board[
@@ -942,7 +943,18 @@ while running:
                     possible_moves
                 )
 
-               
+                # selected_piece = piece
+
+                # selected_row = row
+
+                # selected_col = col
+
+
+                # print(
+                #     "Selected:",
+                #     selected_piece
+                # )
+
 
             # =============================================
             # SECOND CLICK
