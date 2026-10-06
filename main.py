@@ -1640,7 +1640,7 @@ while running:
 
             pygame.draw.rect(
                 screen,
-                (255, 0, 0),
+                (180, 0, 255),
                 (
                     col * SQUARE_SIZE,
                     row * SQUARE_SIZE,
@@ -1658,7 +1658,7 @@ while running:
 
             pygame.draw.rect(
                 screen,
-                (255, 0, 0),
+                (180, 0, 255),
                 (
                     col * SQUARE_SIZE,
                     row * SQUARE_SIZE,
@@ -1763,9 +1763,9 @@ while running:
         if winner:
 
             text = font.render(
-                f"{winner} Wins!",
+                f"♔ CHECKMATE!{winner.upper()} WINS ♔",
                 True,
-                (255, 0, 0)
+                (180, 0, 255)
             )
 
         else:
