@@ -814,24 +814,26 @@ while running:
             # BOARD POSITION
             # =============================================
 
-            col = (
+            display_col = (
                 event.pos[0]
                 // SQUARE_SIZE
             )
 
-            row = (
+            display_row = (
                 event.pos[1]
                 // SQUARE_SIZE
             )
 
 
-            if not (
-                0 <= row < ROWS
-                and
-                0 <= col < COLS
-            ):
+            if player_color == "BLACK":
+                col = 7 - display_col
+                row = 7 - display_row
+            else:
+                  col = display_col
+                  row = display_row
+            
 
-                continue
+                
 
 
             # =============================================
@@ -943,19 +945,7 @@ while running:
                     possible_moves
                 )
 
-                # selected_piece = piece
-
-                # selected_row = row
-
-                # selected_col = col
-
-
-                # print(
-                #     "Selected:",
-                #     selected_piece
-                # )
-
-
+    
             # =============================================
             # SECOND CLICK
             # =============================================
@@ -1675,13 +1665,20 @@ while running:
 
     for move_row, move_col in possible_moves:
 
+        draw_row = move_row
+        draw_col = move_col
+
+        if player_color == "BLACK":
+            draw_row = 7 - move_row
+            draw_col = 7 - move_col
+
         center_x = (
-            move_col * SQUARE_SIZE
+            draw_col * SQUARE_SIZE
             + SQUARE_SIZE // 2
         )
 
         center_y = (
-            move_row * SQUARE_SIZE
+            draw_row * SQUARE_SIZE
             + SQUARE_SIZE // 2
         )
 
@@ -1702,12 +1699,20 @@ while running:
 
     if selected_piece is not None:
 
-        pygame.draw.rect(
+         draw_row = selected_row
+         draw_col = selected_col
+
+         if player_color == "BLACK":
+             draw_row = 7 - selected_row
+             draw_col = 7 - selected_col
+
+
+         pygame.draw.rect(
             screen,
             (255, 255, 0),
             (
-                selected_col * SQUARE_SIZE,
-                selected_row * SQUARE_SIZE,
+                draw_col * SQUARE_SIZE,
+                draw_row * SQUARE_SIZE,
                 SQUARE_SIZE,
                 SQUARE_SIZE
             ),
@@ -1728,13 +1733,20 @@ while running:
 
             if piece != "":
 
+                draw_row = row
+                draw_col = col
+
+                if player_color == "BLACK":
+                    draw_row = 7 - row
+                    draw_col = 7 - col
+
                 if piece in pieces:
 
                     screen.blit(
                         pieces[piece],
                         (
-                            col * SQUARE_SIZE,
-                            row * SQUARE_SIZE
+                            draw_col * SQUARE_SIZE,
+                            draw_row * SQUARE_SIZE
                         )
                     )
 
