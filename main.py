@@ -1700,7 +1700,7 @@ while running:
 
             pygame.draw.rect(
                 screen,
-                (255, 215, 0),
+                (255, 0, 0),   # Red
                 (
                     col * SQUARE_SIZE,
                     row * SQUARE_SIZE,
@@ -1718,7 +1718,7 @@ while running:
 
             pygame.draw.rect(
                 screen,
-                (255, 215, 0),
+                (255, 0, 0),   # Red,
                 (
                     col * SQUARE_SIZE,
                     row * SQUARE_SIZE,
