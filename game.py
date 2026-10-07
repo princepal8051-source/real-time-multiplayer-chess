@@ -4,11 +4,7 @@ selected_col = -1
 
 current_turn = "white"
 
-selected_piece = None
-selected_row = -1
-selected_col = -1
 
-current_turn = "white"
 
 
 

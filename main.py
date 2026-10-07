@@ -170,6 +170,10 @@ selected_col = -1
 
 possible_moves = []
 
+# Last Move Highlight
+last_move_from = None
+last_move_to = None
+
 
 # =========================================================
 # RECEIVE OPPONENT MOVE
@@ -180,6 +184,9 @@ def receive_moves():
     global current_turn
     global game_over
     global winner
+
+    global last_move_from
+    global last_move_to
 
     global white_king_moved
     global black_king_moved
@@ -428,6 +435,16 @@ def receive_moves():
                     to_row,
                     to_col,
                     captured_piece
+                )
+
+                last_move_from = (
+                from_row,
+                from_col 
+               )
+
+                last_move_to = (
+                  to_row,
+                  to_col
                 )
 
 
@@ -1361,14 +1378,14 @@ while running:
                         else:
 
                             save_move(
-                                game_id,
-                                current_turn,
-                                piece,
-                                selected_row,
-                                selected_col,
-                                row,
-                                col,
-                                captured_piece
+                              game_id,
+                              current_turn,
+                              piece,
+                              selected_row,
+                              selected_col,
+                              row,
+                              col,
+                              captured_piece
                             )
 
 
@@ -1379,6 +1396,16 @@ while running:
                                 row,
                                 col,
                                 captured_piece
+                            )
+
+                            last_move_from = (
+                                selected_row,
+                                selected_col
+                            )
+
+                            last_move_to = (
+                                row,
+                                col
                             )
 
 
@@ -1618,6 +1645,49 @@ while running:
                     SQUARE_SIZE
                 )
             )
+
+    # =====================================
+    # LAST MOVE HIGHLIGHT
+    # =====================================
+
+    if last_move_from and last_move_to:
+
+        from_row, from_col = last_move_from
+        to_row, to_col = last_move_to
+
+        if player_color == "BLACK":
+
+            from_row = 7 - from_row
+            from_col = 7 - from_col
+
+            to_row = 7 - to_row
+            to_col = 7 - to_col
+
+        pygame.draw.rect(
+             screen,
+             (255, 255, 0),      # Yellow
+                (
+                    from_col * SQUARE_SIZE,
+                    from_row * SQUARE_SIZE,
+                    SQUARE_SIZE,
+                    SQUARE_SIZE
+                ),
+                4
+        )
+
+        pygame.draw.rect(
+             screen,
+             (255, 255, 0),      # Yellow
+                (
+                    to_col * SQUARE_SIZE,
+                    to_row * SQUARE_SIZE,
+                    SQUARE_SIZE,
+                    SQUARE_SIZE
+                ),
+                4
+        )
+
+
     # ==============================
     # HIGHLIGHT KING WHEN IN CHECK
     # ==============================
