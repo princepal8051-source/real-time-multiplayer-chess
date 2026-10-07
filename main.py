@@ -1700,7 +1700,7 @@ while running:
 
             pygame.draw.rect(
                 screen,
-                (180, 0, 255),
+                (255, 215, 0),
                 (
                     col * SQUARE_SIZE,
                     row * SQUARE_SIZE,
@@ -1718,7 +1718,7 @@ while running:
 
             pygame.draw.rect(
                 screen,
-                (180, 0, 255),
+                (255, 215, 0),
                 (
                     col * SQUARE_SIZE,
                     row * SQUARE_SIZE,
@@ -1844,10 +1844,34 @@ while running:
 
         if winner:
 
+            # Single Board Mode
+            if player_color is None:
+
+                message = f"♔ CHECKMATE! {winner.upper()} WINS ♔"
+
+                color = (0, 255, 0)     # Green
+
+
+            # Multiplayer Mode
+
+            elif (
+                (winner == "White" and player_color == "WHITE")
+                or
+                (winner == "Black" and player_color == "BLACK")
+            ):
+                message = f"♔ CHECKMATE! {winner.upper()} WINS ♔"
+
+                color = (0, 255, 0)     # Green
+
+            else:
+                message = f"♔ CHECKMATE! {player_color.upper()} LOSES ♔"
+
+                color = (255, 0, 0)     # Red
+
             text = font.render(
-                f"♔ CHECKMATE!{winner.upper()} WINS ♔",
+                message,
                 True,
-                (180, 0, 255)
+                color
             )
 
         else:
@@ -1855,7 +1879,7 @@ while running:
             text = font.render(
                 "Stalemate!",
                 True,
-                (255, 0, 0)
+                (255, 215, 0)           # Gold
             )
 
 
