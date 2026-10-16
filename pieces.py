@@ -1,22 +1,25 @@
 import pygame
+from pathlib import Path
 
 def load_pieces():
 
     pieces = {}
 
-    pieces["wk"] = pygame.image.load("/Users/princepal/Desktop/Chess_klt60.png")
-    pieces["wq"] = pygame.image.load("/Users/princepal/Desktop/Chess_qlt60.png")
-    pieces["wr"] = pygame.image.load("/Users/princepal/Desktop/Chess_rlt60.png")
-    pieces["wb"] = pygame.image.load("/Users/princepal/Desktop/Chess_blt60.png")
-    pieces["wn"] = pygame.image.load("/Users/princepal/Desktop/Chess_nlt60.png")
-    pieces["wp"] = pygame.image.load("/Users/princepal/Desktop/Chess_plt60.png")
+    image_directory = Path(__file__).resolve().parent / "image.py"
 
-    pieces["bk"] = pygame.image.load("/Users/princepal/Desktop/Chess_kdt60.png")
-    pieces["bq"] = pygame.image.load("/Users/princepal/Desktop/Chess_qdt60.png")
-    pieces["br"] = pygame.image.load("/Users/princepal/Desktop/Chess_rdt60.png")
-    pieces["bb"] = pygame.image.load("/Users/princepal/Desktop/Chess_bdt60.png")
-    pieces["bn"] = pygame.image.load("/Users/princepal/Desktop/Chess_ndt60.png")
-    pieces["bp"] = pygame.image.load("/Users/princepal/Desktop/Chess_pdt60.png")
+    pieces["wk"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0009.png"))
+    pieces["wq"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0011.png"))
+    pieces["wr"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0014.png"))
+    pieces["wb"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0018.png"))
+    pieces["wn"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0010.png"))
+    pieces["wp"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0015.png"))
+
+    pieces["bk"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0008.png"))
+    pieces["bq"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0013.png"))
+    pieces["br"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0012.png"))
+    pieces["bb"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0007.png"))
+    pieces["bn"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0017.png"))
+    pieces["bp"] = pygame.image.load(str(image_directory / "IMG-20260924-WA0016.png"))
 
     for piece in pieces:
         pieces[piece] = pygame.transform.scale(
