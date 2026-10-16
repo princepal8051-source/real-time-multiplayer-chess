@@ -1,5 +1,6 @@
 import pygame
 import threading
+import signal
 
 from settings import *
 from board import board
@@ -206,7 +207,7 @@ def receive_moves():
 
             if not data:
 
-                continue
+                break
 
 
             print(
@@ -452,25 +453,15 @@ def receive_moves():
                 # CHANGE TURN
                 # ---------------------------------------------
 
-                if current_turn == "white":
-
-                    current_turn = "black"
-
-                else:
-
-                    current_turn = "white"
-
-
-                print(
-                    "Board Updated"
+                current_turn = (
+                    "black"
+                    if piece[0].lower() == "w"
+                    else "white"
                 )
 
-                print(
-                    "Turn:",
-                    current_turn
-                )
-
-
+                print("MOVE RECEIVED:", data)
+                print("Current turn:", current_turn)
+                print("This player's color:", player_color)
                 # ---------------------------------------------
                 # CHECK STATUS
                 # ---------------------------------------------
@@ -698,6 +689,19 @@ def draw_promotion_menu():
 running = True
 
 
+def handle_interrupt(_signum, _frame):
+
+    global running
+
+    running = False
+
+
+signal.signal(
+    signal.SIGINT,
+    handle_interrupt
+)
+
+
 while running:
 
     # =====================================================
@@ -800,13 +804,7 @@ while running:
                     # TURN
                     # -------------------------------------
 
-                    if current_turn == "white":
-
-                        current_turn = "black"
-
-                    else:
-
-                        current_turn = "white"
+                    current_turn = "black" if promoted_piece[0] == "w" else "white"
 
 
                     print(
@@ -878,6 +876,18 @@ while running:
                 # -----------------------------------------
 
                 if piece == "":
+
+                    continue
+
+
+                if (
+                    player_color in ("WHITE", "BLACK")
+                    and current_turn.upper() != player_color
+                ):
+
+                    print(
+                        f"Waiting for {current_turn.capitalize()} to move"
+                    )
 
                     continue
 
@@ -1278,13 +1288,7 @@ while running:
                     )
 
 
-                    if current_turn == "white":
-
-                        current_turn = "black"
-
-                    else:
-
-                        current_turn = "white"
+                    current_turn = "black" if piece[0] == "w" else "white"
 
 
                     print(
@@ -1525,14 +1529,12 @@ while running:
                                 # TURN
                                 # ---------------------------------
 
-                                if current_turn == "white":
+                                current_turn = "black" if piece[0] == "w" else "white"
 
-                                    current_turn = "black"
 
-                                else:
-
-                                    current_turn = "white"
-
+                                print("LOCAL MOVE COMPLETED")
+                                print("Current turn after local move:", current_turn)
+                                print("This player's color:", player_color)
 
                                 print(
                                     "Turn:",
